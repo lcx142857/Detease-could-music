@@ -2,7 +2,8 @@
 
 ## Project 
 ```
-A cloud music API based on the development of the SPA, you can achieve the evaluation function of the basic functions.
+A cloud music API based on the development of the SPA, you can achieve the evaluation function 
+of the basic functions.
 ```
 
 ### Purpose of the project
