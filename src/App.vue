@@ -1,14 +1,25 @@
 <template>
   <div id="app">
-    <div class="test"></div>
+    <headerNav></headerNav>
+    <Tabbar></Tabbar>
+    <keep-alive include="Singer,Search">
+      <router-view></router-view>
+    </keep-alive>
+    <Player></Player>
   </div>
 </template>
-
-<style lang="scss">
-.test{
-  width: 100px;
-  height: 100px;
-  background: red;
-  transform: translate(50%,-50%);
+<script>
+import headerNav from './components/MainHeader'
+import Tabbar from './components/Tabbar'
+import Player from './views/Player'
+export default {
+  name: 'App',
+  components: {
+    headerNav,
+    Tabbar,
+    Player
+  }
 }
+</script>
+<style scoped>
 </style>
