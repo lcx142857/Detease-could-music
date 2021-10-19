@@ -90,7 +90,7 @@ export default {
     this.setFavoriteList(favoriteList)
     const historylist = getLocalStorage('historyList')
     if (historylist === null) { return }
-    this.setHistory(historylist)
+    this.setHistorySong(historylist)
   },
   mounted () {
     this.$refs.audio.oncanplay = () => {

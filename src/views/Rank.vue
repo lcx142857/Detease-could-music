@@ -6,27 +6,27 @@
           <li v-for="(value,key) in category.titles" :key="key">
             <h3 class="group-title">{{value}}</h3>
             <ul class="normal-group" v-if="value === '官方榜'">
-              <li v-for="obj in category[key]" :key="obj.rank.id" @click.stop="selectItem(obj.id)">
-                <div class="rank-left">
+              <li v-for="(obj, index) in category[key]" :key="index" @click.stop="selectItem(obj.id)">
+                <div class="rank-left" v-if="obj.rank">
                   <img v-lazy="obj.rank.coverImgUrl" alt="">
                   <p>{{obj.rank.updateFrequency}}</p>
                 </div>
-                <div class="rank-right">
+                <div class="rank-right" v-if="obj.rank">
                   <p v-for="(song,index) in obj.rank.tracks" :key="song.first">{{index}}.{{song.first}}-{{song.second}}</p>
                 </div>
               </li>
             </ul>
-            <!--<ul class="other-group" v-else>
-              <li v-for="obj in category[key]" :key="obj.rank.id">
-                <div class="rank-top">
+            <ul class="other-group" v-else>
+              <li v-for="(obj, index) in category[key]" :key="index" @click.stop="selectItem(obj.id)">
+                <div class="rank-top" v-if="obj.rank">
                   <img v-lazy="obj.rank.coverImgUrl" alt="">
                   <p>{{obj.rank.updateFrequency}}</p>
                 </div>
-                <div class="rank-bottom">
+                <div class="rank-bottom" v-if="obj.rank">
                   <p>{{obj.rank.name}}</p>
                 </div>
               </li>
-            </ul>-->
+            </ul>
           </li>
         </ul>
       </ScrollView>
@@ -40,10 +40,12 @@
 <script>
 import { getTopListDetail } from '../api'
 import ScrollView from '../components/ScrollView'
+import MetaInfo from '../../vue-meta-info'
 
 export default {
   name: 'Rank',
-  computed: {
+  metaInfo: MetaInfo.rank,
+  components: {
     ScrollView
   },
   methods: {
@@ -56,10 +58,12 @@ export default {
       category: []
     }
   },
-  created () {
+  mounted () {
     getTopListDetail()
       .then((data) => {
         this.category = data
+        console.log(this.category)
+        console.log('this.category')
       })
       .catch(function (err) {
         console.log(err)
@@ -120,40 +124,40 @@ export default {
         }
       }
     }
-  }
-  /*.other-group{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    li{
-      padding: 10px 20px;
-      box-sizing: border-box;
-      .rank-top{
-        position: relative;
-        img{
+    .other-group{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      li{
+        padding: 10px 20px;
+        box-sizing: border-box;
+        .rank-top{
+          position: relative;
+          img{
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+          }
+          p{
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            color: #fff;
+            @include font_size($font_medium_s);
+          }
+        }
+        .rank-bottom{
           width: 200px;
-          height: 200px;
-          border-radius: 10px;
-        }
-        p{
-          position: absolute;
-          left: 10px;
-          bottom: 10px;
-          color: #fff;
-          @include font_size($font_medium_s);
-        }
-      }
-      .rank-bottom{
-        width: 200px;
-        @include no-wrap();
-        p{
-          padding: 10px 0;
-          @include font_color();
-          @include font_size($font_medium_s);
+          @include no-wrap();
+          p{
+            padding: 10px 0;
+            @include font_color();
+            @include font_size($font_medium_s);
+          }
         }
       }
     }
-  }*/
+  }
 }
 .v-enter{
   transform: translate(100%);

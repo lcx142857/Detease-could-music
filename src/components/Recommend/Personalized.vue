@@ -4,9 +4,9 @@
       <h3>{{ title }}</h3>
     </div>
     <div class="personalized-list">
-      <div class="item" v-for="value in personalized" :key="value.id" @click="selectItem(value.id)">
+      <div v-for="value in personalized" :key="value.id" @click="selectItem(value.id)">
         <img v-lazy="value.picUrl" alt="">
-        <p>{{value.name}}</p>
+        <p>{{ value.name }}</p>
       </div>
     </div>
   </div>
@@ -43,42 +43,50 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/css/mixin";
 @import "../../assets/css/variable";
-.personalized{
+
+.personalized {
   @include bg_sub_color();
-  .personalized-top{
+
+  .personalized-top {
     width: 100%;
     height: 84px;
     line-height: 84px;
     @include bg_sub_color();
     border-bottom: 1px solid #ccc;
     padding: 0 20px;
-    h3{
+
+    h3 {
       @include font_size($font_large);
       font-weight: bold;
       @include font_color()
     }
   }
-  .personalized-list{
+
+  .personalized-list {
     width: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 20px 0;
-    .item{
+
+    .item {
       width: 200px;
       padding-bottom: 20px;
-      img{
+
+      img {
         width: 200px;
         height: 180px;
         border-radius: 20px;
       }
-      p{
+
+      p {
         @include clamp(2);
         @include font_color();
         @include font_size($font_medium_s);
         text-align: center;
       }
     }
-  };
+  }
+;
 }
 </style>
